@@ -1,0 +1,40 @@
+PODS:
+  - Differentiator (3.0.2)
+  - "NSObject+Rx (4.3.0)":
+    - RxSwift (~> 4.0)
+  - RxCocoa (4.2.0):
+    - RxSwift (~> 4.0)
+  - RxDataSources (3.0.2):
+    - Differentiator (~> 3.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+  - RxSwift (4.2.0)
+  - SnapKit (4.0.0)
+
+DEPENDENCIES:
+  - "NSObject+Rx (~> 4.3.0)"
+  - RxCocoa (~> 4.2.0)
+  - RxDataSources (~> 3.0.2)
+  - RxSwift (~> 4.2.0)
+  - SnapKit (~> 4.0.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Differentiator
+    - "NSObject+Rx"
+    - RxCocoa
+    - RxDataSources
+    - RxSwift
+    - SnapKit
+
+SPEC CHECKSUMS:
+  Differentiator: a87be69eba49ec4ab460c7671143ee3a9eececfd
+  "NSObject+Rx": 9a5eeff5e08156f849fa973514456f28eef08742
+  RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
+  RxDataSources: cb7c31e652a87ebb919da45f716bbb87b3765f6b
+  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+
+PODFILE CHECKSUM: ce6acbee9ffaf984fb14eb23a3812f516e2d6366
+
+COCOAPODS: 1.5.3
