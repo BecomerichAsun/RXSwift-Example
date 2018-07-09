@@ -50,6 +50,7 @@ class MainViewController: UITableViewController {
                 }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: rx.disposeBag)
         
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+   
         
     }
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
