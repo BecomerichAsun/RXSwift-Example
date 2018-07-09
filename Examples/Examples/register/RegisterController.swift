@@ -39,36 +39,31 @@ class RegisterController: UIViewController {
     @IBOutlet weak var pwdInput: UITextField!
     @IBOutlet weak var pwdTitle: UILabel!
     
+    lazy var count:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         userTitle.text = "帐号不能小于\(minimalUsernameLength)位数"
         pwdTitle.text = "密码不能小于\(minimalPasswordLength)位数"
-        
         let user = userInput.rx.text.orEmpty.map({$0.count >= minimalUsernameLength}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
         let pwd = pwdInput.rx.text.orEmpty.map({$0.count >= minimalPasswordLength}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
         let every = Observable.combineLatest(user,pwd) {$0 && $1}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
-        
         user.bind(to: userTitle.rx.isHidden).disposed(by: rx.disposeBag)
         pwd.bind(to: pwdTitle.rx.isHidden).disposed(by: rx.disposeBag)
         every.bind(to: registerBtn.rx.isEnabled).disposed(by: rx.disposeBag)
-        
-        registerBtn.rx.tap
-            .subscribe(onNext: { [weak self] _ in self?.showAlert() })
-            .disposed(by: rx.disposeBag)
+        registerBtn.rx.tap.throttle(1, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] _ in self?.showAlert()
+            }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: rx.disposeBag)
     }
 }
 
-
 extension RegisterController {
     func showAlert() {
+        count += 1
         let alert = UIAlertView(
             title: "Login Success",
-            message: "Hellow Word !!!",
+            message: "Hellow Word !!!\n 点击弹窗\(count)",
             delegate: nil,
             cancelButtonTitle: "OK")
-        
         alert.show()
     }
 }
