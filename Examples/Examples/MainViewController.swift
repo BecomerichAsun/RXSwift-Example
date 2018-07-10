@@ -15,6 +15,7 @@ import NSObject_Rx
 enum section:Int {
     case combineLatest = 0
     case Register = 1
+    case Observable = 2
 }
 
 class MainViewController: UITableViewController {
@@ -44,6 +45,8 @@ class MainViewController: UITableViewController {
                     self.creatVC(string: "ExamplesOneController")
                 case section.Register.hashValue:
                     self.creatVC(string: "RegisterController")
+                case section.Observable.hashValue:
+                    self.creatVC(string: "ObservableController")
                 default:
                     break
                 }

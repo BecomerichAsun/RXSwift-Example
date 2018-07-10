@@ -31,6 +31,15 @@ import NSObject_Rx
 fileprivate let minimalUsernameLength = 5
 fileprivate let minimalPasswordLength = 5
 
+public enum SingleEvent<Element> {
+    case success(Element)
+    case error(Swift.Error)
+}
+
+enum DataError: Error {
+    case cantParseJSON
+}
+
 class RegisterController: UIViewController {
     
     @IBOutlet weak var registerBtn: UIButton!
@@ -47,6 +56,7 @@ class RegisterController: UIViewController {
         pwdTitle.text = "密码不能小于\(minimalPasswordLength)位数"
         
         let user = userInput.rx.text.orEmpty.map({$0.count >= minimalUsernameLength}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        
         let pwd = pwdInput.rx.text.orEmpty.map({$0.count >= minimalPasswordLength}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
         let every = Observable.combineLatest(user,pwd) {$0 && $1}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
         
@@ -55,8 +65,21 @@ class RegisterController: UIViewController {
         every.bind(to: registerBtn.rx.isEnabled).disposed(by: rx.disposeBag)
         
         registerBtn.rx.tap.throttle(1, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] _ in self?.showAlert()
+            self?.getPlaylist("1").subscribe({ (event) in
+                switch event {
+                case .success(let data):
+                    print("请求成功\(data)")
+                case .error(let error):
+                    print("请求失败\(error)")
+                }
+            })
             }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: rx.disposeBag)
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     deinit {
         print("======== \(self.classForCoder) =======")
     }
@@ -72,4 +95,38 @@ extension RegisterController {
             cancelButtonTitle: "OK")
         alert.show()
     }
+    
+    //获取豆瓣某频道下的歌曲信息
+    func getPlaylist(_ channel: String) -> Single<[String: Any]> {
+        return Single<[String: Any]>.create { single in
+            let url = "https://douban.fm/j/mine/playlist?"
+                + "type=n&channel=\(channel)&from=mainsite"
+            let task = URLSession.shared.dataTask(with: URL(string: url)!) { data, _, error in
+                if let error = error {
+                    single(.error(error))
+                    return
+                }
+                
+                guard let data = data,
+                    let json = try? JSONSerialization.jsonObject(with: data,
+                                                                 options: .mutableLeaves),
+                    let result = json as? [String: Any] else {
+                        single(.error(DataError.cantParseJSON))
+                        return
+                }
+                
+                single(.success(result))
+            }
+            
+            task.resume()
+            
+            return Disposables.create { task.cancel() }
+        }
+    }
+    
+    //与数据相关的错误类型
+    enum DataError: Error {
+        case cantParseJSON
+    }
+    
 }

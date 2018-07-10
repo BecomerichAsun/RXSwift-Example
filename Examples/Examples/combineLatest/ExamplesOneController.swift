@@ -15,7 +15,7 @@ import NSObject_Rx
  利用combineLatest特性,将三个输入框的字符串长度取出,做出判断,求和得出总结果
  
  拓展:
-此方法适用于 注册登录 输入框长度判断等模块
+ 此方法适用于 注册登录 输入框长度判断等模块
  */
 
 class ExamplesOneController: UIViewController {
@@ -46,6 +46,14 @@ class ExamplesOneController: UIViewController {
             }
             .map { $0.description }
             .bind(to: result.rx.text).disposed(by: rx.disposeBag)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    deinit {
+        print("======== \(self.classForCoder) =======")
     }
 }
 

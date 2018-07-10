@@ -12,3 +12,10 @@ struct MainModel {
     let title: String
     let introduce: String
 }
+
+
+extension MainModel : CustomStringConvertible {
+    var description: String {
+        return  "标题是\(title),内容是\(introduce)"
+    }
+}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Observable-Time-->
+        <scene sceneID="hWR-GV-ZTN">
+            <objects>
+                <viewController storyboardIdentifier="ObservableController" title="Observable-Time" id="HuH-V7-H7o" customClass="ObservableController" customModule="Examples" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rSh-lu-bhH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bXl-A1-U5Z">
+                                <rect key="frame" x="145.5" y="70" width="84.5" height="20.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="y6T-vJ-TjV">
+                                        <rect key="frame" x="0.0" y="0.0" width="84.5" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前索引:0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0x-N8-mZY">
+                                                <rect key="frame" x="0.0" y="0.0" width="84.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Observable:观察者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k88-uS-fyP">
+                                <rect key="frame" x="112.5" y="34.5" width="151.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AnyObserver:任意观察者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAo-gu-vTg">
+                                <rect key="frame" x="93" y="115.5" width="189" height="19.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="textColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前索引:0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v71-Nt-WOf">
+                                <rect key="frame" x="145" y="150" width="84.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Binder:不会处理错误事件的观察者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xc1-jm-zHE">
+                                <rect key="frame" x="53.5" y="195.5" width="267.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.57380741830000004" green="0.56553578380000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前索引:0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1s-lm-2GT">
+                                <rect key="frame" x="145.5" y="231" width="84.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hAo-gu-vTg" firstAttribute="centerX" secondItem="rSh-lu-bhH" secondAttribute="centerX" id="5Sb-zL-cvW"/>
+                            <constraint firstItem="bXl-A1-U5Z" firstAttribute="top" secondItem="k88-uS-fyP" secondAttribute="bottom" constant="15" id="6HY-Uv-G7H"/>
+                            <constraint firstItem="xc1-jm-zHE" firstAttribute="top" secondItem="v71-Nt-WOf" secondAttribute="bottom" constant="25" id="8Ay-3L-1EW"/>
+                            <constraint firstItem="hAo-gu-vTg" firstAttribute="top" secondItem="bXl-A1-U5Z" secondAttribute="bottom" constant="25" id="8dK-00-9Ds"/>
+                            <constraint firstItem="n1s-lm-2GT" firstAttribute="top" secondItem="xc1-jm-zHE" secondAttribute="bottom" constant="15" id="DRV-bl-qFK"/>
+                            <constraint firstItem="bXl-A1-U5Z" firstAttribute="centerX" secondItem="rSh-lu-bhH" secondAttribute="centerX" id="Idc-69-7q6"/>
+                            <constraint firstItem="bXl-A1-U5Z" firstAttribute="top" secondItem="tRC-QV-nuv" secondAttribute="top" constant="50" id="M2q-lp-Pvx"/>
+                            <constraint firstItem="k88-uS-fyP" firstAttribute="centerX" secondItem="rSh-lu-bhH" secondAttribute="centerX" id="TnG-I7-h8D"/>
+                            <constraint firstItem="v71-Nt-WOf" firstAttribute="centerX" secondItem="rSh-lu-bhH" secondAttribute="centerX" id="W1p-Ho-yvc"/>
+                            <constraint firstItem="v71-Nt-WOf" firstAttribute="top" secondItem="hAo-gu-vTg" secondAttribute="bottom" constant="15" id="gVs-dP-3qB"/>
+                            <constraint firstItem="xc1-jm-zHE" firstAttribute="centerX" secondItem="rSh-lu-bhH" secondAttribute="centerX" id="hTO-jI-8vP"/>
+                            <constraint firstItem="n1s-lm-2GT" firstAttribute="centerX" secondItem="rSh-lu-bhH" secondAttribute="centerX" id="kCG-vZ-YAK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tRC-QV-nuv"/>
+                    </view>
+                    <connections>
+                        <outlet property="time" destination="U0x-N8-mZY" id="STd-Nz-Rv2"/>
+                        <outlet property="time1" destination="v71-Nt-WOf" id="pZU-Yd-hR6"/>
+                        <outlet property="time2" destination="n1s-lm-2GT" id="1Ai-gL-Uj2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yXu-7Z-LCq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="182" y="146"/>
+        </scene>
+    </scenes>
+</document>
