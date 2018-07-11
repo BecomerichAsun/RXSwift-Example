@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import NSObject_Rx
+import Alamofire
 /**
  总结:
  界面布局就不多说了
@@ -49,31 +50,27 @@ class RegisterController: UIViewController {
     @IBOutlet weak var pwdTitle: UILabel!
     
     lazy var count:Int = 0
+    lazy var url:URL = URL(string: "https://www.douban.com/j/app/radio/channels")!
+    
+    lazy var table:UITableView = {
+        let table = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
+        table.isHidden = true
+        table.backgroundColor = UIColor.red
+        table.sizeToFit()
+        table.clipsToBounds = true
+        return table
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         userTitle.text = "帐号不能小于\(minimalUsernameLength)位数"
         pwdTitle.text = "密码不能小于\(minimalPasswordLength)位数"
         
-        let user = userInput.rx.text.orEmpty.map({$0.count >= minimalUsernameLength}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        view.addSubview(table)
+        table.frame = CGRect(x: 0, y: UIScreen.main.bounds.size.height/2 + 30, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height/2)
         
-        let pwd = pwdInput.rx.text.orEmpty.map({$0.count >= minimalPasswordLength}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
-        let every = Observable.combineLatest(user,pwd) {$0 && $1}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
-        
-        user.bind(to: userTitle.rx.isHidden).disposed(by: rx.disposeBag)
-        pwd.bind(to: pwdTitle.rx.isHidden).disposed(by: rx.disposeBag)
-        every.bind(to: registerBtn.rx.isEnabled).disposed(by: rx.disposeBag)
-        
-        registerBtn.rx.tap.throttle(1, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] _ in self?.showAlert()
-            self?.getPlaylist("1").subscribe({ (event) in
-                switch event {
-                case .success(let data):
-                    print("请求成功\(data)")
-                case .error(let error):
-                    print("请求失败\(error)")
-                }
-            })
-            }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: rx.disposeBag)
+        addEvent()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -82,6 +79,44 @@ class RegisterController: UIViewController {
     
     deinit {
         print("======== \(self.classForCoder) =======")
+    }
+}
+
+extension RegisterController {
+    
+    func addEvent() {
+        
+        let user = userInput.rx.text.orEmpty.map({$0.count >= minimalUsernameLength}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        
+        let pwd = pwdInput.rx.text.orEmpty.map({$0.count >= minimalPasswordLength}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        
+        let every = Observable.combineLatest(user,pwd) {$0 && $1}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        
+        user.bind(to: userTitle.rx.isHidden).disposed(by: rx.disposeBag)
+        pwd.bind(to: pwdTitle.rx.isHidden).disposed(by: rx.disposeBag)
+        every.bind(to: registerBtn.rx.isEnabled).disposed(by: rx.disposeBag)
+        
+        registerBtn.rx.tap.throttle(1, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] _ in self?.showAlert()
+            self?.requestAddTable()
+            }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: rx.disposeBag)
+    }
+    
+    func requestAddTable() {
+        table.delegate = nil
+        table.dataSource = nil
+        
+        let data = requestJSON(.get, url)
+            .map{$1}
+            .mapObject(type: requestModel.self)
+            .map{$0.channels ?? []}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        
+        data.bind(to: table.rx.items) { (tableView, row, element) in
+            tableView.isHidden = false
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
+            cell.textLabel?.text = "\(row+1)：\(element.name!)"
+            return cell
+            }.disposed(by: rx.disposeBag)
     }
 }
 
@@ -95,38 +130,6 @@ extension RegisterController {
             cancelButtonTitle: "OK")
         alert.show()
     }
-    
-    //获取豆瓣某频道下的歌曲信息
-    func getPlaylist(_ channel: String) -> Single<[String: Any]> {
-        return Single<[String: Any]>.create { single in
-            let url = "https://douban.fm/j/mine/playlist?"
-                + "type=n&channel=\(channel)&from=mainsite"
-            let task = URLSession.shared.dataTask(with: URL(string: url)!) { data, _, error in
-                if let error = error {
-                    single(.error(error))
-                    return
-                }
-                
-                guard let data = data,
-                    let json = try? JSONSerialization.jsonObject(with: data,
-                                                                 options: .mutableLeaves),
-                    let result = json as? [String: Any] else {
-                        single(.error(DataError.cantParseJSON))
-                        return
-                }
-                
-                single(.success(result))
-            }
-            
-            task.resume()
-            
-            return Disposables.create { task.cancel() }
-        }
-    }
-    
-    //与数据相关的错误类型
-    enum DataError: Error {
-        case cantParseJSON
-    }
-    
 }
+
+

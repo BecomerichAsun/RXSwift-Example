@@ -16,6 +16,7 @@ enum section:Int {
     case combineLatest = 0
     case Register = 1
     case Observable = 2
+    case search = 3
 }
 
 class MainViewController: UITableViewController {
@@ -47,6 +48,8 @@ class MainViewController: UITableViewController {
                     self.creatVC(string: "RegisterController")
                 case section.Observable.hashValue:
                     self.creatVC(string: "ObservableController")
+                case section.search.hashValue:
+                    self.creatVC(string: "SearchController")
                 default:
                     break
                 }

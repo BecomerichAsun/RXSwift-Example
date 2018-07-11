@@ -9,6 +9,8 @@ target 'Examples' do
    pod 'RxDataSources', '~> 3.0.2'
    pod 'NSObject+Rx', '~> 4.3.0'
    pod 'SnapKit', '~> 4.0.0'
+   pod 'ObjectMapper', '~> 3.2.0'
+   pod 'Alamofire', '~> 4.7.2'
   # Pods for Examples
 
 end

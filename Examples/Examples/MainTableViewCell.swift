@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+
 class MainTableViewCell: UITableViewCell {
     
     lazy var titleLabel:UILabel = {

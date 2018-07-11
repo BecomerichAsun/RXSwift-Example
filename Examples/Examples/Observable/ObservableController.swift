@@ -64,7 +64,6 @@ class ObservableController: UIViewController {
         observable.map{CGFloat($0)}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected).bind(to: time1.fontSize).disposed(by: rx.disposeBag)
         observable.map{CGFloat($0)}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected).bind(to: time2.rx.fontSize).disposed(by: rx.disposeBag)
     }
-
     deinit {
         print("======== \(self.classForCoder) =======")
     }
@@ -83,7 +82,7 @@ extension UILabel {
 //对Reactive扩展
 extension Reactive where Base: UILabel {
     public var fontSize: Binder<CGFloat> {
-        return  Binder(self.base) {(label,fontSize) in
+        return  Binder(base) {(label,fontSize) in
             guard fontSize >= 17 else {
                 label.font = UIFont.systemFont(ofSize: fontSize)
                 return
