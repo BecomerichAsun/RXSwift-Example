@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4D2F84CED4646140F0CCE14E /* Pods_Examples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A8978A7018921E1ABEDE90 /* Pods_Examples.framework */; };
+		94484FB420F66F0B00DCC956 /* judgeLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94484FB320F66F0B00DCC956 /* judgeLogin.swift */; };
+		94484FB820F673DB00DCC956 /* RegisterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94484FB720F673DB00DCC956 /* RegisterModels.swift */; };
 		946F722820F5F84D00B9C727 /* requestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946F722720F5F84D00B9C727 /* requestModel.swift */; };
 		946F722A20F5F8DF00B9C727 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946F722920F5F8DF00B9C727 /* RxAlamofire.swift */; };
-		946F722D20F615A300B9C727 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946F722C20F615A300B9C727 /* SearchController.swift */; };
-		946F722F20F6186F00B9C727 /* SearchController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 946F722E20F6186F00B9C727 /* SearchController.storyboard */; };
-		946F723120F61BEB00B9C727 /* ResponseSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946F723020F61BEB00B9C727 /* ResponseSearch.swift */; };
-		946F723320F6270300B9C727 /* searchSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946F723220F6270300B9C727 /* searchSource.swift */; };
 		9479ED8F20F47094003A83B4 /* ObservableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479ED8E20F47094003A83B4 /* ObservableController.swift */; };
 		9479ED9120F4709C003A83B4 /* ObservableController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9479ED9020F4709C003A83B4 /* ObservableController.storyboard */; };
 		9479ED9420F496FA003A83B4 /* Subjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9479ED9320F496FA003A83B4 /* Subjects.swift */; };
@@ -36,12 +34,10 @@
 
 /* Begin PBXFileReference section */
 		58A8978A7018921E1ABEDE90 /* Pods_Examples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Examples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		94484FB320F66F0B00DCC956 /* judgeLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = judgeLogin.swift; sourceTree = "<group>"; };
+		94484FB720F673DB00DCC956 /* RegisterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModels.swift; sourceTree = "<group>"; };
 		946F722720F5F84D00B9C727 /* requestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestModel.swift; sourceTree = "<group>"; };
 		946F722920F5F8DF00B9C727 /* RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxAlamofire.swift; sourceTree = "<group>"; };
-		946F722C20F615A300B9C727 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
-		946F722E20F6186F00B9C727 /* SearchController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchController.storyboard; sourceTree = "<group>"; };
-		946F723020F61BEB00B9C727 /* ResponseSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSearch.swift; sourceTree = "<group>"; };
-		946F723220F6270300B9C727 /* searchSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchSource.swift; sourceTree = "<group>"; };
 		9479ED8E20F47094003A83B4 /* ObservableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableController.swift; sourceTree = "<group>"; };
 		9479ED9020F4709C003A83B4 /* ObservableController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ObservableController.storyboard; sourceTree = "<group>"; };
 		9479ED9320F496FA003A83B4 /* Subjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subjects.swift; sourceTree = "<group>"; };
@@ -78,17 +74,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		946F722B20F6159200B9C727 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				946F722C20F615A300B9C727 /* SearchController.swift */,
-				946F722E20F6186F00B9C727 /* SearchController.storyboard */,
-				946F723020F61BEB00B9C727 /* ResponseSearch.swift */,
-				946F723220F6270300B9C727 /* searchSource.swift */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
 		9479ED8D20F47080003A83B4 /* Observable */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +130,6 @@
 		94C88BF920F3113F0068F7BA /* Examples */ = {
 			isa = PBXGroup;
 			children = (
-				946F722B20F6159200B9C727 /* Search */,
 				94A97BE920F5A70D002138C7 /* Response */,
 				9479ED9520F49AF2003A83B4 /* operator */,
 				9479ED9220F496E8003A83B4 /* Subjects:Variables */,
@@ -180,6 +164,8 @@
 				94C88C2020F34CB70068F7BA /* RegisterController.swift */,
 				94C88C2220F34CC20068F7BA /* RegisterController.storyboard */,
 				946F722720F5F84D00B9C727 /* requestModel.swift */,
+				94484FB320F66F0B00DCC956 /* judgeLogin.swift */,
+				94484FB720F673DB00DCC956 /* RegisterModels.swift */,
 			);
 			name = register;
 			path = Examples/register;
@@ -262,7 +248,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				946F722F20F6186F00B9C727 /* SearchController.storyboard in Resources */,
 				94C88C0520F311420068F7BA /* LaunchScreen.storyboard in Resources */,
 				9479ED9120F4709C003A83B4 /* ObservableController.storyboard in Resources */,
 				94C88C2320F34CC20068F7BA /* RegisterController.storyboard in Resources */,
@@ -331,20 +316,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94484FB820F673DB00DCC956 /* RegisterModels.swift in Sources */,
 				94C88C1E20F34C930068F7BA /* ExamplesOneController.swift in Sources */,
 				946F722820F5F84D00B9C727 /* requestModel.swift in Sources */,
 				94C88BFB20F3113F0068F7BA /* AppDelegate.swift in Sources */,
-				946F723120F61BEB00B9C727 /* ResponseSearch.swift in Sources */,
+				94484FB420F66F0B00DCC956 /* judgeLogin.swift in Sources */,
 				94C88C0F20F3145C0068F7BA /* NavGationController.swift in Sources */,
 				946F722A20F5F8DF00B9C727 /* RxAlamofire.swift in Sources */,
 				94C88C1120F31C2D0068F7BA /* MainTableViewCell.swift in Sources */,
 				94C88C2120F34CB70068F7BA /* RegisterController.swift in Sources */,
 				9479ED8F20F47094003A83B4 /* ObservableController.swift in Sources */,
 				94A97BED20F5BE7B002138C7 /* Model.swift in Sources */,
-				946F723320F6270300B9C727 /* searchSource.swift in Sources */,
 				9479ED9420F496FA003A83B4 /* Subjects.swift in Sources */,
 				94C88C1320F31E5B0068F7BA /* MainModel.swift in Sources */,
-				946F722D20F615A300B9C727 /* SearchController.swift in Sources */,
 				94C88C0D20F313AA0068F7BA /* MainViewController.swift in Sources */,
 				94A97BEB20F5A7C1002138C7 /* ResponseAPI.swift in Sources */,
 				9479ED9720F49AF7003A83B4 /* File.swift in Sources */,

@@ -32,15 +32,6 @@ import Alamofire
 fileprivate let minimalUsernameLength = 5
 fileprivate let minimalPasswordLength = 5
 
-public enum SingleEvent<Element> {
-    case success(Element)
-    case error(Swift.Error)
-}
-
-enum DataError: Error {
-    case cantParseJSON
-}
-
 class RegisterController: UIViewController {
     
     @IBOutlet weak var registerBtn: UIButton!
@@ -54,8 +45,6 @@ class RegisterController: UIViewController {
     
     lazy var table:UITableView = {
         let table = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
-        table.isHidden = true
-        table.backgroundColor = UIColor.red
         table.sizeToFit()
         table.clipsToBounds = true
         return table
@@ -66,6 +55,7 @@ class RegisterController: UIViewController {
         
         userTitle.text = "帐号不能小于\(minimalUsernameLength)位数"
         pwdTitle.text = "密码不能小于\(minimalPasswordLength)位数"
+
         
         view.addSubview(table)
         table.frame = CGRect(x: 0, y: UIScreen.main.bounds.size.height/2 + 30, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height/2)
@@ -84,6 +74,8 @@ class RegisterController: UIViewController {
 
 extension RegisterController {
     
+   
+    
     func addEvent() {
         
         let user = userInput.rx.text.orEmpty.map({$0.count >= minimalUsernameLength}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
@@ -92,13 +84,27 @@ extension RegisterController {
         
         let every = Observable.combineLatest(user,pwd) {$0 && $1}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
         
-        user.bind(to: userTitle.rx.isHidden).disposed(by: rx.disposeBag)
-        pwd.bind(to: pwdTitle.rx.isHidden).disposed(by: rx.disposeBag)
-        every.bind(to: registerBtn.rx.isEnabled).disposed(by: rx.disposeBag)
+        user.asDriver(onErrorJustReturn: true).drive(userTitle.rx.isHidden).disposed(by: rx.disposeBag)
+        
+        pwd.asDriver(onErrorJustReturn: true).drive(pwdTitle.rx.isHidden).disposed(by: rx.disposeBag)
+        
+        every.asDriver(onErrorJustReturn: true).drive(registerBtn.rx.isEnabled).disposed(by: rx.disposeBag)
+        
+        isHidden()
         
         registerBtn.rx.tap.throttle(1, scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] _ in self?.showAlert()
             self?.requestAddTable()
             }, onError: nil, onCompleted: nil, onDisposed: nil).disposed(by: rx.disposeBag)
+    }
+    
+    func isHidden() {
+        let isUser = userInput.rx.text.orEmpty.map({$0.count >= 5 }).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        
+        let isPwd = pwdInput.rx.text.orEmpty.map({$0.count >= 5}).share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        
+        let every = Observable.combineLatest(isUser,isPwd) {($0 && $1) == false}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+        
+        every.asDriver(onErrorJustReturn: true).drive(self.table.rx.isHidden).disposed(by: rx.disposeBag)
     }
     
     func requestAddTable() {
@@ -110,14 +116,15 @@ extension RegisterController {
             .mapObject(type: requestModel.self)
             .map{$0.channels ?? []}.share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
         
-        data.bind(to: table.rx.items) { (tableView, row, element) in
-            tableView.isHidden = false
+        data.asDriver(onErrorJustReturn: []).drive(table.rx.items){ (tableView, row, element) in
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
             cell.textLabel?.text = "\(row+1)：\(element.name!)"
             return cell
             }.disposed(by: rx.disposeBag)
     }
+    
+    
 }
 
 extension RegisterController {
@@ -131,5 +138,4 @@ extension RegisterController {
         alert.show()
     }
 }
-
 
